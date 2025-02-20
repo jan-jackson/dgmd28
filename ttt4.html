@@ -1,0 +1,129 @@
+<!--
+    Assignment TTT4
+    Jan Jackson
+    Creates a tic tac toe board and boxes to display the turn and winner.
+    The player who starts is determined by a random number.  Also a counter 
+    is created which will track the number of boxes filled.  The event handler
+    now checks that the box is empty before marking it; if it is not, an alert
+    is displayed.  Played squares may not be changed.  When all nine squares 
+    have been filled, the game is over.
+
+    I'm having trouble with the sizing - it will go down to a certain point, 
+    then no smaller.  I'd like to talk to one of you about the whole mobile
+    sizing issue.
+
+-->
+
+<html>
+    <head>
+        <style type="text/css">
+            h1 {text-align:center}
+            
+            .turnbox {border: 2px solid #0000ff; width: 320px; height: 50px; 
+                text-align: center; font-family: sans-serif; font-size: 28px; box-sizing: border-box; line-height: 50px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+            
+            .whowon {border: 2px solid #0000ff; width: 320px; height: 50px; 
+                text-align: center; font-family: sans-serif; font-size: 28px; box-sizing: border-box; line-height: 50px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+        
+            .square {border: 2px solid #0000ff; width: 100px; height: 100px; 
+                text-align: center; text; font-family: sans-serif; font-size: 60px; box-sizing: border-box; line-height: 100px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+            .square:hover {background-color: #cdcdcd}
+
+            .board {width: 350px}            
+        </style>
+        
+        <script>
+            //  var that manages which player's turn it is
+            var turn = "";
+            // get a random number between 0 and 99 and take the remainder
+            var count = parseInt( (Math.random() * 100 ) % 2);
+            //  if the remainder is 0, X starts, otherwise O starts
+            turn = (count == 0) ? 'X' : 'O';
+            const NUM_BOXES = 9;
+
+            
+            //  function to set up event listeners; also randomly sets
+            //  which player starts the game and announces it.
+            window.onload=function()
+            {
+                sqr = document.getElementsByClassName('square');
+                for(i = 0; i < sqr.length; i++){
+                    sqr[i].addEventListener("click", processClick );                    
+                }  //  end for
+                
+                //  count is used to track the number of plays to 
+                //  determine when all boxes are filled.
+                count = 0;
+                turnbox = document.getElementById( "turnbox");
+                turnbox.innerHTML = "" + turn + " starts the game!";
+            }
+
+            
+            //  event handler which checks for an empty box, if so it then
+            //  sets the box to the current player's symbol.  If the box
+            //  is occupied, it alerts the user.  It also switches whose
+            //  turn it is so players alternate.
+            var processClick = function()
+            {   
+                //  check whether all boxes are played; if so, we're done.
+                if( count >= NUM_BOXES ){
+                    return;
+                }
+                
+                //  check the box to see if it's been played; if not, set it
+                //  and count the play.
+                box = document.getElementById( this.id );
+                value = box.innerHTML;
+                if(value != 'X' && value != 'O'){
+                    box.innerHTML = turn;
+                    count++;
+                }
+                //  if the box was already played, alert the used but still
+                //  switch players!
+                else { 
+                    alert( "You can't play in an occupied box!!")
+                }
+             
+                //  when written the function to check for a win will be called 
+                //  here and announced and the game will end
+                
+                turnbox = document.getElementById( "turnbox");
+                if( count == NUM_BOXES ){
+                    turnbox.innerHTML = "Game over!";
+                    return;
+                }
+                
+                //  switch turns between players
+                turn = ( turn == 'X' ? 'O' : 'X' );
+                turnbox.innerHTML = "It's now " + turn + "'s turn!";
+            }
+
+        </script>
+        
+    </head>
+    
+    <body>
+        <h1> TTT4 </h1>
+        <div class='board'>
+            <script>
+            const NUM_SQUARES = 9;
+            for (i=0; i<NUM_SQUARES; i++)
+            {
+                id = "sq"+i;
+                document.write( "<div class='square' id='" + id + "'> </div>" );
+            }
+                
+            </script>
+        </div>    
+        
+        <div class='turnbox' id='turnbox'>
+        Whose turn?
+        </div> <br />
+        <div class = 'whowon' id='whowon'>
+        Who won?
+        </div>
+        
+        <div id= "result"></div>
+
+    </body>
+</html>    

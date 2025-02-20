@@ -1,0 +1,81 @@
+<!--
+    Assignment TTT3
+    Jan Jackson
+    Creates a tic tac toe board and boxes to display the turn and winner.
+    Adds event listeners which currently put an 'X' in a clicked box and 
+display a message telling which box was clicked.
+
+-->
+<html>
+    <head>
+        <style type="text/css">
+            h1 {text-align:center}
+            
+            .turnbox {border: 2px solid #0000ff; width: 320px; height: 50px; 
+                text-align: center; text; font-family: sans-serif; font-size: 24px; box-sizing: border-box; line-height: 50px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+            
+            .whowon {border: 2px solid #0000ff; width: 320px; height: 50px; 
+                text-align: center; text; font-family: sans-serif; font-size: 24px; box-sizing: border-box; line-height: 50px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+        
+            .square {border: 2px solid #0000ff; width: 100px; height: 100px; 
+                text-align: center; text; font-family: sans-serif; font-size: 48px; box-sizing: border-box; line-height: 100px; display: inline-block; vertical-align: top; margin: 5px 5px;}
+            .square:hover {background-color: #cdcdcd}
+
+            .board {width: 350px}            
+        </style>
+        
+        <script>
+        //  function to add event listeners to the squares   
+        window.onload=function()
+        {
+            sqr = document.getElementsByClassName('square');
+            for(i = 0; i < sqr.length; i++){
+                sqr[i].addEventListener("click", processClick );                    
+            }  //  end for
+        }
+        
+        //  create var to handle turns and set it randomly to 'X' or 'O'
+        var turn = 'X';   //  need random number
+        
+        //  function to handle square clicks - currently changes contents
+        //  to 'X' and gives alert with square number
+        var processClick = function()
+        {
+            let box = this.id;
+            document.getElementById( box ).innerHTML = "X";
+            alert("You clicked box " + box.charAt(2));
+        }
+
+        </script>
+        
+    </head>
+    
+    <body>
+        <h1> TTT3 </h1>
+        
+        <div class='board'>
+            <script>
+            //  Sets up the squares for the game, setting class and id    
+            const NUM_SQUARES = 9;
+            for (i=0; i<NUM_SQUARES; i++)
+            {
+                id = "sq"+i;
+                document.write( "<div class='square' id='" + id + "'> </div>" );
+            }
+                
+          
+            document.getElementById("sq0").innerHTML = 'X';
+            document.getElementById("sq3").innerHTML = '0';
+            document.getElementById("sq6").innerHTML = 'X';    
+                
+            </script>
+        </div>    
+        
+        <div class='turnbox' id='turnbox'>
+        Whose turn?
+        </div> <br />
+        <div class = 'whowon' id='whowon'>
+        Who won?
+        </div>
+        
+    </body>
